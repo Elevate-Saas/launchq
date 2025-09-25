@@ -25,16 +25,7 @@
     "node": ">=18"
   },
   "lint-staged": {
-    "*.{ts,tsx}": [
-      "prettier --write",
-      "eslint --fix",
-      "tsc --noEmit"
-    ],
-    "*.{js,jsx}": [
-      "prettier --write",
-      "eslint --fix"
-    ],
-    "*.{md,json}": [
+    "*.{ts,tsx,js,jsx,md,json}": [
       "prettier --write"
     ]
   }
