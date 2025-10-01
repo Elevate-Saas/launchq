@@ -19,7 +19,9 @@
     "lint-staged": "^16.2.0",
     "prettier": "^3.6.2",
     "turbo": "^2.5.8",
-    "typescript": "5.9.2"
+    "typescript": "5.9.2",
+    "@launchq/core": "workspace:*",
+    "class-validator": "^0.14.2"
   },
   "packageManager": "pnpm@9.0.0",
   "engines": {
