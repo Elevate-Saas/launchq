@@ -2,6 +2,7 @@ import * as React from "react";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
+import { BackButton } from "@/components/back-button";
 
 export default function WaitlistSettingsPage({
   params,
@@ -11,7 +12,8 @@ export default function WaitlistSettingsPage({
   const { id } = React.use(params);
   return (
     <div className="grid gap-6">
-      <div className="flex items-center justify-between">
+      <div className="grid gap-2">
+        <BackButton className="w-fit justify-start" />
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">
             Waitlist Settings
