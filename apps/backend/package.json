@@ -17,15 +17,24 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "migrate:dev": "pnpm migrate dev --schema=src/modules/shared/database/prisma/schema.prisma",
+    "migrate:deploy": "pnpm migrate deploy --schema=src/modules/shared/database/prisma/schema.prisma",
+    "schema:generate": "pnpm prisma generate --schema=src/modules/shared/database/prisma/schema.prisma"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
+    "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^11.0.1",
     "@nestjs/platform-express": "^11.0.1",
+    "@node-rs/bcrypt": "^1.10.7",
+    "@prisma/client": "^6.16.3",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.2",
+    "dotenv": "^17.2.3",
+    "jsonwebtoken": "^9.0.2",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
-    "class-validator": "^0.14.1",
     "@launchq/core": "workspace:*"
   },
   "devDependencies": {
@@ -44,6 +53,7 @@
     "globals": "^16.0.0",
     "jest": "^30.0.0",
     "prettier": "^3.4.2",
+    "prisma": "^6.16.3",
     "source-map-support": "^0.5.21",
     "supertest": "^7.0.0",
     "ts-jest": "^29.2.5",
