@@ -7,14 +7,14 @@ import { IResponse, ISignUp } from '@launchq/core';
 export class AuthController {
   constructor(private readonly service: AuthService) {}
 
-  @Post('signup')
+  @Post('/signup')
   async signUp(@Body() body: SignUpDto, @Res() res: Response) {
     const payload: ISignUp = body;
     const response: IResponse = await this.service.signUp(payload);
     return res.status(response.status).json(response);
   }
 
-  @Post('login')
+  @Post('/login')
   async login(@Body() body: SignUpDto, @Res() res: Response) {
     const payload: ISignUp = body;
     const response: IResponse = await this.service.login(payload);
