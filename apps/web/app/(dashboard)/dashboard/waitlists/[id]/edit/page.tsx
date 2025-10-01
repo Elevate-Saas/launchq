@@ -13,6 +13,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { BackButton } from "@/components/back-button";
 
 export default function EditWaitlistPage({
   params,
@@ -29,7 +30,8 @@ export default function EditWaitlistPage({
 
   return (
     <div className="grid gap-6">
-      <div>
+      <div className="grid gap-2">
+        <BackButton className="w-fit justify-start" />
         <h1 className="text-2xl font-semibold tracking-tight">Edit Waitlist</h1>
         <p className="text-sm text-muted-foreground">
           Update name and description for{" "}

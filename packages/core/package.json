@@ -1,14 +1,13 @@
 {
-  "name": "@launchq/types",
-  "version": "0.0.0",
+  "name": "@launchq/core",
+  "version": "0.0.1",
   "private": true,
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.js"
+      "default": "./dist/index.js"
     }
   },
   "scripts": {
@@ -18,9 +17,14 @@
     "clean": "rm -rf dist"
   },
   "devDependencies": {
-    "typescript": "5.9.2"
+    "typescript": "5.9.2",
+    "class-validator": "^0.14.1"
   },
   "files": [
     "dist"
-  ]
+  ],
+  "dependencies": {
+    "@nestjs/common": "^11.0.1",
+    "class-validator": "^0.14.2"
+  }
 }
