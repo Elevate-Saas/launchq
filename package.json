@@ -21,6 +21,7 @@
     "turbo": "^2.5.8",
     "typescript": "5.9.2",
     "@launchq/core": "workspace:*",
+    "prisma": "^6.16.3",
     "class-validator": "^0.14.2"
   },
   "packageManager": "pnpm@9.0.0",
