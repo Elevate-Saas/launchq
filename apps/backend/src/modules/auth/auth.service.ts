@@ -60,9 +60,7 @@ export class AuthService {
     });
 
     if (!user) {
-      return this.response.error400Response(
-        'This email is not registered on LukeHealth.',
-      );
+      return this.response.error400Response('Email not registered.');
     }
 
     const correctPassword: boolean = await this.encryption.compareHash(
