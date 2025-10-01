@@ -2,15 +2,14 @@
   "name": "launchq",
   "private": true,
   "scripts": {
-    "build": "turbo run build --filter=./apps/backend...",
-    "dev": "turbo run dev --filter=./apps/backend...",
+    "build": "turbo run build",
+    "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
     "prepare": "husky",
-    "lint-staged": "lint-staged",
-    "start": "pnpm --filter ./apps/backend start"
+    "lint-staged": "lint-staged"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
