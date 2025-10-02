@@ -25,7 +25,7 @@ export class PrismaService extends PrismaClient implements OnModuleDestroy {
                 if (args && typeof args.where === 'object') {
                   // Check if `deletedAt` is a valid field for this model's `where` input
                   if ('deletedAt' in args.where) {
-                    (args.where as any).deletedAt = { equals: null };
+                    args.where.deletedAt = { equals: null };
                   }
                 }
               }
