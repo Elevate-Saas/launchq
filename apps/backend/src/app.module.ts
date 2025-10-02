@@ -1,8 +1,30 @@
-import { Module } from '@nestjs/common';
-import modules from './modules';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import * as morgan from 'morgan';
+
+// import modules from './modules';
+import { AuthenticationGuard } from './shared';
+import { APP_GUARD } from '@nestjs/core';
+import { AuthModule } from './modules/auth/auth.module';
+import { DatabaseServiceModule } from './modules/shared/database/database.module';
+import { UtilsServiceModule } from './modules/shared/utils/utils.module';
+import { OrganizationModule } from './modules/organization/organization.module';
 @Module({
-  imports: [...modules],
+  imports: [
+    AuthModule,
+    DatabaseServiceModule,
+    UtilsServiceModule,
+    OrganizationModule,
+  ],
   controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: AuthenticationGuard,
+    },
+  ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(morgan('dev')).forRoutes('*');
+  }
+}
