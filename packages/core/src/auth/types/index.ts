@@ -9,3 +9,10 @@ export type IRefreshTokens = {
   refreshToken: string;
   refreshTokenHash: string;
 };
+
+export type ICurrentUser = {
+  id: string;
+  email: string;
+  name: string | null;
+  role: string;
+};

@@ -18,3 +18,23 @@ export type IAcceptInvite = {
   token: string;
   password: string;
 };
+
+export interface OrganizationMember {
+  id: string;
+  email: string;
+  name: string | null;
+  role: string;
+  createdAt: string;
+  deletedAt: string | null;
+}
+
+export interface Organization {
+  id: string;
+  businessName: string;
+  businessEmail: string;
+  businessLogo: string;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string | null;
+  members: OrganizationMember[];
+}
