@@ -3,6 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,16 +17,26 @@ import {
 } from "@/components/ui/form";
 import { Chrome } from "lucide-react";
 import { Logo } from "@/components/logo";
+import { useSignIn } from "@/lib/api/auth";
+import { Loader } from "@/components/ui/loader";
 
 export default function SignInPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
+  const signInMutation = useSignIn();
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setIsLoading(true);
-    setTimeout(() => setIsLoading(false), 800);
+    signInMutation.mutate(
+      { email, password },
+      {
+        onSuccess: () => {
+          router.push("/dashboard");
+        },
+      },
+    );
   }
 
   return (
@@ -136,8 +147,19 @@ export default function SignInPage() {
               <FormMessage />
             </FormItem>
 
-            <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? "Signing in..." : "Sign In"}
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={signInMutation.isPending}
+            >
+              {signInMutation.isPending ? (
+                <div className="flex items-center gap-2">
+                  <Loader size="sm" />
+                  Signing in...
+                </div>
+              ) : (
+                "Sign In"
+              )}
             </Button>
           </Form>
 

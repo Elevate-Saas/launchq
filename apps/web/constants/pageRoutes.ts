@@ -6,7 +6,7 @@ export type PageRoute = {
 export const pageRoutes: PageRoute[] = [
   { label: "Overview", href: "/dashboard" },
   { label: "Waitlists", href: "/dashboard/waitlists" },
-  { label: "Create Waitlist", href: "/dashboard/waitlists/new" },
-  { label: "Organizations", href: "/dashboard/organizations" },
-  { label: "My Account", href: "/dashboard/account" },
+  { label: "Analytics", href: "/dashboard/analytics" },
+  { label: "Organization", href: "/dashboard/organizations" },
+  { label: "Settings", href: "/dashboard/settings" },
 ];

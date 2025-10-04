@@ -1,7 +1,11 @@
+"use client";
 import * as React from "react";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
+import { LoadingWrapper } from "@/components/loading-wrapper";
+import { WaitlistsTableSkeleton } from "@/components/skeletons/page-skeleton";
+import { useUserStore } from "@/lib/stores/user-store";
 
 const mockWaitlists = [
   {
@@ -19,6 +23,8 @@ const mockWaitlists = [
 ];
 
 export default function WaitlistsPage() {
+  const { isLoading } = useUserStore();
+
   return (
     <div className="grid gap-6">
       <div className="flex items-center justify-between">
@@ -33,49 +39,57 @@ export default function WaitlistsPage() {
         </Button>
       </div>
 
-      <div className="overflow-x-auto rounded-xl border">
-        <table className="w-full text-sm">
-          <thead className="bg-muted/50 text-muted-foreground">
-            <tr>
-              <th className="px-4 py-2 text-left font-medium">Waitlist ID</th>
-              <th className="px-4 py-2 text-left font-medium">Name</th>
-              <th className="px-4 py-2 text-left font-medium">Description</th>
-              <th className="px-4 py-2 text-left font-medium">Date Created</th>
-              <th className="px-4 py-2 text-right font-medium">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {mockWaitlists.map((w) => (
-              <tr key={w.id} className="border-t">
-                <td className="px-4 py-2 font-mono text-xs text-muted-foreground">
-                  {w.id}
-                </td>
-                <td className="px-4 py-2">{w.name}</td>
-                <td className="px-4 py-2 text-muted-foreground">
-                  {w.description}
-                </td>
-                <td className="px-4 py-2 text-muted-foreground">
-                  {w.createdAt}
-                </td>
-                <td className="px-4 py-2 text-right">
-                  <div className="inline-flex gap-2">
-                    <Button asChild variant="outline" size="sm">
-                      <Link href={`/dashboard/waitlists/${w.id}`}>
-                        Settings
-                      </Link>
-                    </Button>
-                    <Button asChild variant="ghost" size="sm">
-                      <Link href={`/dashboard/waitlists/${w.id}/edit`}>
-                        Edit
-                      </Link>
-                    </Button>
-                  </div>
-                </td>
+      <LoadingWrapper
+        isLoading={isLoading}
+        variant="table"
+        skeleton={<WaitlistsTableSkeleton />}
+      >
+        <div className="overflow-x-auto rounded-xl border">
+          <table className="w-full text-sm">
+            <thead className="bg-muted/50 text-muted-foreground">
+              <tr>
+                <th className="px-4 py-2 text-left font-medium">Waitlist ID</th>
+                <th className="px-4 py-2 text-left font-medium">Name</th>
+                <th className="px-4 py-2 text-left font-medium">Description</th>
+                <th className="px-4 py-2 text-left font-medium">
+                  Date Created
+                </th>
+                <th className="px-4 py-2 text-right font-medium">Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {mockWaitlists.map((w) => (
+                <tr key={w.id} className="border-t">
+                  <td className="px-4 py-2 font-mono text-xs text-muted-foreground">
+                    {w.id}
+                  </td>
+                  <td className="px-4 py-2">{w.name}</td>
+                  <td className="px-4 py-2 text-muted-foreground">
+                    {w.description}
+                  </td>
+                  <td className="px-4 py-2 text-muted-foreground">
+                    {w.createdAt}
+                  </td>
+                  <td className="px-4 py-2 text-right">
+                    <div className="inline-flex gap-2">
+                      <Button asChild variant="outline" size="sm">
+                        <Link href={`/dashboard/waitlists/${w.id}`}>
+                          Settings
+                        </Link>
+                      </Button>
+                      <Button asChild variant="ghost" size="sm">
+                        <Link href={`/dashboard/waitlists/${w.id}/edit`}>
+                          Edit
+                        </Link>
+                      </Button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </LoadingWrapper>
     </div>
   );
 }
