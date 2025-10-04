@@ -11,4 +11,10 @@ export const Messages = {
   OLD_PASSWORD_INCORRECT: 'Old password is incorrect',
   PASSWORD_RESET_FAILED: 'Password reset failed',
   ORGANIZATION_EXISTS: 'An organization with this email already exists',
+  ORGANIZATION_NOT_FOUND: 'Organization not found',
+  INVITATION_NOT_FOUND: 'Invitation not found',
+  INVITATION_ACCEPTED: 'Invitation accepted',
+  INVITATIONS_FETCHED: 'Invitations fetched successfully',
+  INVITATION_ALREADY_ACCEPTED: 'Invitation has already been accepted',
+  INVITATION_RESENT: 'Invitation resent successfully',
 };

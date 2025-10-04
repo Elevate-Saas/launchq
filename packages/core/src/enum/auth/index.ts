@@ -9,3 +9,8 @@ export enum UserRoleEnum {
   SUPPORT_STAFF = "support_staff",
   DEVELOPER = "developer",
 }
+
+export type IAddMember1 = {
+  email: string;
+  role: string;
+};
