@@ -4,13 +4,8 @@ export enum TokenTypeEnum {
 }
 
 export enum UserRoleEnum {
-  SUPER_ADMIN = "super_admin",
-  ADMIN = "admin",
-  SUPPORT_STAFF = "support_staff",
-  DEVELOPER = "developer",
+  SUPER_ADMIN = "SUPER_ADMIN",
+  ADMIN = "ADMIN",
+  SUPPORT_STAFF = "SUPPORT_STAFF",
+  DEVELOPER = "DEVELOPER",
 }
-
-export type IAddMember1 = {
-  email: string;
-  role: string;
-};
