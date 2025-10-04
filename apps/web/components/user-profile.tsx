@@ -16,12 +16,13 @@ import { useSignOut } from "@/lib/api/auth";
 import { ICurrentUser } from "@launchq/core";
 
 interface UserProfileProps {
-  user: ICurrentUser | null;
+  user: any;
 }
 
 export function UserProfile({ user }: UserProfileProps) {
   const router = useRouter();
   const signOutMutation = useSignOut();
+  const activeUser = user.data;
 
   const handleSignOut = () => {
     signOutMutation.mutate(undefined, {
@@ -47,15 +48,15 @@ export function UserProfile({ user }: UserProfileProps) {
         <button className="flex w-full items-center gap-3 rounded-lg p-2 text-left hover:bg-muted/50 transition-colors">
           <Avatar className="h-8 w-8">
             <AvatarFallback className="bg-primary/10 text-primary font-medium">
-              {getInitials(user?.name || null)}
+              {getInitials(activeUser?.name || null)}
             </AvatarFallback>
           </Avatar>
           <div className="flex-1 min-w-0">
             <p className="text-sm font-medium truncate">
-              {user?.name || user?.email || "User"}
+              {activeUser?.name || activeUser?.email || "User"}
             </p>
             <p className="text-xs text-muted-foreground truncate">
-              {user?.email}
+              {activeUser?.email}
             </p>
           </div>
           <ChevronDown className="h-4 w-4 text-muted-foreground" />
@@ -65,14 +66,14 @@ export function UserProfile({ user }: UserProfileProps) {
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
             <p className="text-sm font-medium leading-none">
-              {user?.name || user?.email || "User"}
+              {activeUser?.name || activeUser?.email || "User"}
             </p>
             <p className="text-xs leading-none text-muted-foreground">
-              {user?.email}
+              {activeUser?.email}
             </p>
-            {user?.role && (
+            {activeUser?.role && (
               <p className="text-xs leading-none text-muted-foreground capitalize">
-                {user.role.toLowerCase().replace("_", " ")}
+                {activeUser.role.toLowerCase().replace("_", " ")}
               </p>
             )}
           </div>

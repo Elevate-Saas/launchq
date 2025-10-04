@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useGetAuthUser } from "@/lib/api";
 import { useUserStore } from "@/lib/stores/user-store";
-import { ICurrentUser, ResponseStateEnum } from "@launchq/core";
+import { ResponseStateEnum } from "@launchq/core";
 
 // This hook should only be used once at the app level to initialize user data
 export const useUserInitializer = () => {
