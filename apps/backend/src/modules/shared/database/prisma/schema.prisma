@@ -31,6 +31,8 @@ model User {
 
   profile Profile?
   referrals Referral[] @relation("UserReferrals")
+
+  invitations Invitation[]
 }
 
 model Organization {
@@ -139,6 +141,23 @@ model NotificationSetting {
   waitlist Waitlist @relation(fields: [waitlistId], references: [id])
   waitlistId String @unique
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+}
+
+model Invitation {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  token     String   @unique
+  role      String   @default("DEVELOPER")
+
+  inviter   User     @relation(fields: [inviterId], references: [id])
+  inviterId String
+  organizationId String
+
+  accepted  Boolean  @default(false)
+  acceptedAt DateTime?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   deletedAt DateTime?

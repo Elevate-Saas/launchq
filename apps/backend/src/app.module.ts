@@ -2,7 +2,7 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import * as morgan from 'morgan';
 
 // import modules from './modules';
-import { AuthenticationGuard } from './shared';
+import { AuthenticationGuard, RolesGuard } from './shared';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthModule } from './modules/auth/auth.module';
 import { DatabaseServiceModule } from './modules/shared/database/database.module';
@@ -20,6 +20,10 @@ import { OrganizationModule } from './modules/organization/organization.module';
     {
       provide: APP_GUARD,
       useClass: AuthenticationGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
     },
   ],
 })

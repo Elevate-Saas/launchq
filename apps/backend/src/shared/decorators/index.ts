@@ -9,7 +9,7 @@ import {
 export const Authorization = () => SetMetadata('authorization', true);
 export const Refresh = () => SetMetadata('refresh-authorization', true);
 export const EmailVerified = () => SetMetadata('email-verified', true);
-export const Roles = (...roles: UserRoleEnum[]) => SetMetadata('roles', roles);
+export const Roles = (...role: UserRoleEnum[]) => SetMetadata('role', role);
 export const GetUser = createParamDecorator(
   (_data: unknown, ctx: ExecutionContext) => {
     const request = ctx.switchToHttp().getRequest();
