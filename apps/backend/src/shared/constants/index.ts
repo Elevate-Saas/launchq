@@ -17,4 +17,9 @@ export const Messages = {
   INVITATIONS_FETCHED: 'Invitations fetched successfully',
   INVITATION_ALREADY_ACCEPTED: 'Invitation has already been accepted',
   INVITATION_RESENT: 'Invitation resent successfully',
+  WAITLIST_CREATED: 'Waitlist created successfully',
+  WAITLIST_NOT_FOUND: 'Waitlist not found',
+  WAITLIST_FETCHED: 'Waitlist fetched successfully',
+  WAITLIST_UPDATED: 'Waitlist updated successfully',
+  INVALID_UPDATE_FIELDS: 'No valid fields provided for update',
 };

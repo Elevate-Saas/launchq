@@ -107,8 +107,8 @@ model Referral {
 
 model ReferralSystem {
   id        String   @id @default(uuid())
-  rewardType String? // e.g., "discount", "free_month"
-  rewardValue String? // e.g., "10%", "1 month"
+  incentiveType String? // e.g., "discount", "free_month"
+  incentiveValue String? // e.g., "10%", "1 month"
 
   spotBoosts Int @default(0)
 
@@ -137,6 +137,7 @@ model NotificationSetting {
   id        String   @id @default(uuid())
   emailNotifications Boolean @default(true)
   smsNotifications Boolean @default(false)
+  emailDashboardLink Boolean @default(false)
 
   waitlist Waitlist @relation(fields: [waitlistId], references: [id])
   waitlistId String @unique
