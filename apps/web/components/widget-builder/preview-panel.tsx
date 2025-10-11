@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Send, ExternalLink } from "lucide-react";
+import { ColorFormat } from "@launchq/core";
 
 interface WidgetConfig {
   submitButtonColor: string;
@@ -15,8 +16,10 @@ interface WidgetConfig {
   borderColor: string;
   title: string;
   successTitle: string;
+  successDescription: string;
+  buttonText: string;
   makeTransparent: boolean;
-  colorFormat: "hex" | "oklch";
+  colorFormat: ColorFormat;
 }
 
 interface PreviewPanelProps {
@@ -77,12 +80,22 @@ export function PreviewPanel({ config, type }: PreviewPanelProps) {
             >
               {config.successTitle || "Successfully signed up!"}
             </h3>
-            <p
-              className="text-sm opacity-75"
-              style={{ color: config.fontColor }}
-            >
-              Thank you for joining our waitlist!
-            </p>
+            {config.successDescription && (
+              <p
+                className="text-sm opacity-75"
+                style={{ color: config.fontColor }}
+              >
+                {config.successDescription}
+              </p>
+            )}
+            {!config.successDescription && (
+              <p
+                className="text-sm opacity-75"
+                style={{ color: config.fontColor }}
+              >
+                Thank you for joining our waitlist!
+              </p>
+            )}
           </div>
         </div>
       );
@@ -104,7 +117,7 @@ export function PreviewPanel({ config, type }: PreviewPanelProps) {
               style={{ color: config.fontColor }}
             />
             <Button size="sm" onClick={handleSubmit} style={buttonStyle}>
-              Join
+              {config.buttonText || "Join"}
             </Button>
           </div>
         );
@@ -142,7 +155,7 @@ export function PreviewPanel({ config, type }: PreviewPanelProps) {
                   className="w-full"
                   style={buttonStyle}
                 >
-                  Sign Up
+                  {config.buttonText || "Sign Up"}
                 </Button>
               </form>
             </div>
@@ -196,7 +209,7 @@ export function PreviewPanel({ config, type }: PreviewPanelProps) {
                   className="w-full"
                   style={buttonStyle}
                 >
-                  Sign Up
+                  {config.buttonText || "Sign Up"}
                 </Button>
               </form>
 
@@ -248,7 +261,7 @@ export function PreviewPanel({ config, type }: PreviewPanelProps) {
                 </div>
 
                 <Button type="submit" className="w-full" style={buttonStyle}>
-                  Sign Up
+                  {config.buttonText || "Sign Up"}
                 </Button>
               </form>
 

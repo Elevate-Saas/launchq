@@ -63,6 +63,7 @@ model Waitlist {
   referralSystemId String?
 
   notifications NotificationSetting?
+  widgetConfig WidgetConfig?
   signups Signup[]
   referrals Referral[] 
 
@@ -70,6 +71,8 @@ model Waitlist {
   updatedAt DateTime @updatedAt
   deletedAt DateTime?
 }
+
+
 
 model Signup {
   id        String   @id @default(uuid())
@@ -158,6 +161,39 @@ model Invitation {
 
   accepted  Boolean  @default(false)
   acceptedAt DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+}
+
+model WidgetConfig {
+  id        String   @id @default(uuid())
+  
+  // Design settings
+  submitButtonColor String   @default("#3829c2")
+  backgroundColor   String   @default("#f4f4f4")
+  fontColor         String   @default("#000000")
+  buttonFontColor   String   @default("#ffffff")
+  borderColor       String   @default("#cccccc")
+  makeTransparent   Boolean  @default(false)
+  colorFormat       String   @default("hex") // "hex" | "oklch" | "rgb" | "hsl"
+  
+  // Text settings
+  title             String?
+  successTitle      String?
+  successDescription String?
+  buttonText        String   @default("Sign Up")
+  
+  // Social settings
+  // socialMessage     String?
+  // ogTitle           String?
+  // ogDescription     String?
+  
+
+
+  waitlist Waitlist @relation(fields: [waitlistId], references: [id])
+  waitlistId String @unique
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   deletedAt DateTime?
