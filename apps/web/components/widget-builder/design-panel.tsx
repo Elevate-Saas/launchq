@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+import { ColorFormat } from "@launchq/core";
 
 interface WidgetConfig {
   submitButtonColor: string;
@@ -14,8 +15,10 @@ interface WidgetConfig {
   borderColor: string;
   title: string;
   successTitle: string;
+  successDescription: string;
+  buttonText: string;
   makeTransparent: boolean;
-  colorFormat: "hex" | "oklch";
+  colorFormat: ColorFormat;
 }
 
 interface DesignPanelProps {
@@ -26,6 +29,21 @@ interface DesignPanelProps {
 export function DesignPanel({ config, onConfigChange }: DesignPanelProps) {
   const updateConfig = (updates: Partial<WidgetConfig>) => {
     onConfigChange({ ...config, ...updates });
+  };
+
+  const getColorPlaceholder = (format: ColorFormat): string => {
+    switch (format) {
+      case ColorFormat.HEX:
+        return "#000000";
+      case ColorFormat.RGB:
+        return "rgb(0, 0, 0)";
+      case ColorFormat.HSL:
+        return "hsl(0, 0%, 0%)";
+      case ColorFormat.OKLCH:
+        return "oklch(0.5 0.1 180)";
+      default:
+        return "#000000";
+    }
   };
 
   const ColorPicker = ({
@@ -54,9 +72,7 @@ export function DesignPanel({ config, onConfigChange }: DesignPanelProps) {
           value={value}
           onChange={(e) => onChange(e.target.value)}
           className="flex-1"
-          placeholder={
-            config.colorFormat === "hex" ? "#000000" : "oklch(0.5 0.1 180)"
-          }
+          placeholder={getColorPlaceholder(config.colorFormat)}
         />
       </div>
       {description && (
@@ -67,27 +83,6 @@ export function DesignPanel({ config, onConfigChange }: DesignPanelProps) {
 
   return (
     <div className="space-y-6">
-      {/* Color Format Selector */}
-      <div className="space-y-2">
-        <Label className="text-sm font-medium">Color Format</Label>
-        <div className="flex gap-2">
-          <Button
-            variant={config.colorFormat === "hex" ? "default" : "outline"}
-            size="sm"
-            onClick={() => updateConfig({ colorFormat: "hex" })}
-          >
-            HEX
-          </Button>
-          <Button
-            variant={config.colorFormat === "oklch" ? "default" : "outline"}
-            size="sm"
-            onClick={() => updateConfig({ colorFormat: "oklch" })}
-          >
-            OKLCH
-          </Button>
-        </div>
-      </div>
-
       {/* Submit Button Color */}
       <ColorPicker
         label="Submit Button Color"
@@ -174,6 +169,37 @@ export function DesignPanel({ config, onConfigChange }: DesignPanelProps) {
           value={config.successTitle}
           onChange={(e) => updateConfig({ successTitle: e.target.value })}
           placeholder="Enter success message"
+        />
+      </div>
+
+      {/* Success Description */}
+      <div className="space-y-2">
+        <div className="flex items-center justify-between">
+          <Label className="text-sm font-medium">Success Description</Label>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => updateConfig({ successDescription: "" })}
+            className="text-xs"
+          >
+            Remove Success Description
+          </Button>
+        </div>
+        <textarea
+          value={config.successDescription}
+          onChange={(e) => updateConfig({ successDescription: e.target.value })}
+          placeholder="Enter success description"
+          className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+        />
+      </div>
+
+      {/* Signup Button Text */}
+      <div className="space-y-2">
+        <Label className="text-sm font-medium">Signup Button Text</Label>
+        <Input
+          value={config.buttonText}
+          onChange={(e) => updateConfig({ buttonText: e.target.value })}
+          placeholder="Sign Up"
         />
       </div>
     </div>

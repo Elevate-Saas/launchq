@@ -1,21 +1,21 @@
 "use client";
 
 import * as React from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Code, Copy, Check } from "lucide-react";
+import { Code, Copy } from "lucide-react";
 import { DesignPanel } from "@/components/widget-builder/design-panel";
 import { PreviewPanel } from "@/components/widget-builder/preview-panel";
-import { SocialPanel } from "@/components/widget-builder/social-panel";
 import { Label } from "@/components/ui/label";
+import { ColorFormat } from "@launchq/core";
 
 interface WidgetBuilderProps {
   waitlistId: string;
 }
 
 export function WidgetBuilder({ waitlistId }: WidgetBuilderProps) {
-  const [activeTab, setActiveTab] = React.useState("design");
+  // const [activeTab, setActiveTab] = React.useState("design");
   const [widgetConfig, setWidgetConfig] = React.useState({
     submitButtonColor: "#3829c2",
     backgroundColor: "#f4f4f4",
@@ -24,8 +24,10 @@ export function WidgetBuilder({ waitlistId }: WidgetBuilderProps) {
     borderColor: "#cccccc",
     title: "Sign up for LaunchQ",
     successTitle: "Successfully signed up for LaunchQ",
+    successDescription: "",
+    buttonText: "Sign Up",
     makeTransparent: false,
-    colorFormat: "hex" as "hex" | "oklch",
+    colorFormat: ColorFormat.HEX,
   });
 
   const [socialConfig, setSocialConfig] = React.useState({
@@ -54,6 +56,8 @@ export function WidgetBuilder({ waitlistId }: WidgetBuilderProps) {
       const params = new URLSearchParams({
         title: config.title,
         success_title: config.successTitle,
+        success_description: config.successDescription,
+        button_text: config.buttonText,
         button_color: config.submitButtonColor,
         background_color: config.backgroundColor,
         font_color: config.fontColor,
@@ -97,35 +101,39 @@ export function WidgetBuilder({ waitlistId }: WidgetBuilderProps) {
             <CardTitle>Widget Settings</CardTitle>
           </CardHeader>
           <CardContent>
-            <Tabs value={activeTab} onValueChange={setActiveTab}>
-              <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="design">Design</TabsTrigger>
-                <TabsTrigger value="social">Social</TabsTrigger>
-                <TabsTrigger value="questions">Questions</TabsTrigger>
-              </TabsList>
+            <DesignPanel
+              config={widgetConfig}
+              onConfigChange={setWidgetConfig}
+            />
+            {/* <Tabs value={activeTab} onValueChange={setActiveTab}>
+                <TabsList className="grid w-full grid-cols-3">
+                  <TabsTrigger value="design">Design</TabsTrigger>
+                  <TabsTrigger value="social">Social</TabsTrigger>
+                  <TabsTrigger value="questions">Questions</TabsTrigger>
+                </TabsList>
 
-              <TabsContent value="design" className="mt-4">
-                <DesignPanel
-                  config={widgetConfig}
-                  onConfigChange={setWidgetConfig}
-                />
-              </TabsContent>
+                <TabsContent value="design" className="mt-4">
+                  <DesignPanel
+                    config={widgetConfig}
+                    onConfigChange={setWidgetConfig}
+                  />
+                </TabsContent>
 
-              <TabsContent value="social" className="mt-4">
-                <SocialPanel
-                  config={socialConfig}
-                  onConfigChange={setSocialConfig}
-                />
-              </TabsContent>
+                <TabsContent value="social" className="mt-4">
+                  <SocialPanel
+                    config={socialConfig}
+                    onConfigChange={setSocialConfig}
+                  />
+                </TabsContent>
 
-              <TabsContent value="questions" className="mt-4">
-                <div className="space-y-4">
-                  <p className="text-sm text-muted-foreground">
-                    Custom questions will be available here.
-                  </p>
-                </div>
-              </TabsContent>
-            </Tabs>
+                <TabsContent value="questions" className="mt-4">
+                  <div className="space-y-4">
+                    <p className="text-sm text-muted-foreground">
+                      Custom questions will be available here.
+                    </p>
+                  </div>
+                </TabsContent>
+              </Tabs> */}
           </CardContent>
         </Card>
       </div>
@@ -145,12 +153,12 @@ export function WidgetBuilder({ waitlistId }: WidgetBuilderProps) {
                     <TabsTrigger value="hosted">Hosted Page</TabsTrigger>
                   </TabsList>
                 </Tabs>
-                <Button onClick={copyToClipboard} size="sm">
-                  {copied ? (
-                    <Check className="h-4 w-4" />
-                  ) : (
-                    <Code className="h-4 w-4" />
-                  )}
+                <Button
+                  onClick={copyToClipboard}
+                  size="sm"
+                  className="bg-primary text-primary-foreground"
+                >
+                  <Code className="h-4 w-4 mr-2" />
                   {copied ? "Copied!" : "Get Embed Code"}
                 </Button>
               </div>
