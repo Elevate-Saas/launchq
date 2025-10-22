@@ -94,22 +94,86 @@ export class WaitlistService {
   }
 
   async updateWaitlist(payload: IUpdateWaitlist) {
-    const { id, name, description, emailVerification } = payload;
+    const {
+      id,
+      name,
+      description,
+      emailVerification,
+      isActive,
+      // nested/related update fields (optional)
+      emailNotifications,
+      emailDashboardLink,
+      spotBoosts,
+      incentiveType,
+      incentiveValue,
+    } = payload;
 
-    const updateData = {
+    const updateData: any = {
       ...(name && { name }),
       ...(description && { description }),
       ...(emailVerification !== undefined && { emailVerification }),
+      ...(isActive !== undefined && { isActive }),
     };
 
-    if (Object.keys(updateData).length === 0) {
+    // build nested updates for related models only when fields provided
+    const nestedUpdates: any = {};
+
+    if (emailNotifications !== undefined || emailDashboardLink !== undefined) {
+      nestedUpdates.notifications = {
+        upsert: {
+          create: {
+            emailNotifications: emailNotifications ?? true,
+            smsNotifications: false,
+            emailDashboardLink: emailDashboardLink ?? false,
+          },
+          update: {
+            ...(emailNotifications !== undefined && { emailNotifications }),
+            ...(emailDashboardLink !== undefined && { emailDashboardLink }),
+          },
+        },
+      };
+    }
+
+    if (
+      spotBoosts !== undefined ||
+      incentiveType !== undefined ||
+      incentiveValue !== undefined
+    ) {
+      nestedUpdates.referralSystem = {
+        upsert: {
+          create: {
+            spotBoosts: spotBoosts ?? 0,
+            incentiveType: incentiveType ?? null,
+            incentiveValue: incentiveValue ?? null,
+            waitlistId: id,
+          },
+          update: {
+            ...(spotBoosts !== undefined && { spotBoosts }),
+            ...(incentiveType !== undefined && { incentiveType }),
+            ...(incentiveValue !== undefined && { incentiveValue }),
+          },
+        },
+      };
+    }
+
+    if (
+      Object.keys(updateData).length === 0 &&
+      Object.keys(nestedUpdates).length === 0
+    ) {
       return this.response.error400Response(Messages.INVALID_UPDATE_FIELDS);
     }
 
     const waitlist = await this.data.waitlist
       .update({
         where: { id },
-        data: updateData,
+        data: {
+          ...updateData,
+          ...nestedUpdates,
+        },
+        include: {
+          notifications: true,
+          referralSystem: true,
+        },
       })
       .catch(() => null);
 

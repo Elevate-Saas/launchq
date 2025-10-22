@@ -66,10 +66,83 @@ export class UpdateWaitlistDto {
   @IsBoolean()
   @IsOptional()
   emailVerification?: boolean;
+
+  // optional additional fields
+  @IsBoolean()
+  @IsOptional()
+  isActive?: boolean;
+
+  @IsBoolean()
+  @IsOptional()
+  emailNotifications?: boolean;
+
+  @IsBoolean()
+  @IsOptional()
+  emailDashboardLink?: boolean;
+
+  // referral system fields (optional)
+  @IsInt()
+  @IsOptional()
+  spotBoosts?: number;
+
+  @IsString()
+  @IsOptional()
+  @IsEnum(WaitlistIncentiveTypeEnum)
+  incentiveType?: string;
+
+  @IsString()
+  @IsOptional()
+  incentiveValue?: string;
 }
 
 export class GetWaitlistDto {
   @IsString()
   @IsNotEmpty()
   organizationId: string;
+}
+
+export class CreateWaitlistWidgetDto {
+  @IsString()
+  @IsNotEmpty()
+  waitlistId: string;
+
+  @IsString()
+  @IsOptional()
+  submitButtonColor?: string;
+
+  @IsString()
+  @IsOptional()
+  backgroundColor?: string;
+
+  @IsString()
+  @IsOptional()
+  fontColor?: string;
+
+  @IsString()
+  @IsOptional()
+  buttonFontColor?: string;
+
+  @IsBoolean()
+  @IsOptional()
+  makeTransparent?: boolean;
+
+  @IsString()
+  @IsOptional()
+  colorFormat?: string;
+
+  @IsString()
+  @IsOptional()
+  title?: string;
+
+  @IsString()
+  @IsOptional()
+  successTitle?: string;
+
+  @IsString()
+  @IsOptional()
+  successDescription?: string;
+
+  @IsString()
+  @IsOptional()
+  buttonText?: string;
 }
