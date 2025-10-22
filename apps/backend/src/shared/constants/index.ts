@@ -22,4 +22,5 @@ export const Messages = {
   WAITLIST_FETCHED: 'Waitlist fetched successfully',
   WAITLIST_UPDATED: 'Waitlist updated successfully',
   INVALID_UPDATE_FIELDS: 'No valid fields provided for update',
+  WIDGET_CONFIG_CREATED: 'Widget configuration created successfully',
 };

@@ -1,7 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../shared/database/prisma';
 import { ResponseUtilsService } from '../shared/utils';
-import { ICreateWaitlist, IGetWaitlist, IUpdateWaitlist } from '@launchq/core';
+import {
+  ICreateWaitlist,
+  ICreateWaitlistWidget,
+  IGetWaitlist,
+  IUpdateWaitlist,
+} from '@launchq/core';
 import { Messages } from 'src/shared';
 
 @Injectable()
@@ -115,6 +120,43 @@ export class WaitlistService {
     return this.response.success201Response({
       message: Messages.WAITLIST_UPDATED,
       data: waitlist,
+    });
+  }
+
+  async createWaitlistWidget(payload: ICreateWaitlistWidget) {
+    const {
+      waitlistId,
+      submitButtonColor,
+      backgroundColor,
+      fontColor,
+      buttonFontColor,
+      makeTransparent,
+      colorFormat,
+      title,
+      successTitle,
+      successDescription,
+      buttonText,
+    } = payload;
+
+    const widget = await this.data.widgetConfig.create({
+      data: {
+        waitlistId,
+        submitButtonColor,
+        backgroundColor,
+        fontColor,
+        buttonFontColor,
+        makeTransparent,
+        colorFormat,
+        title,
+        successTitle,
+        successDescription,
+        buttonText,
+      },
+    });
+
+    return this.response.success201Response({
+      message: Messages.WIDGET_CONFIG_CREATED,
+      data: widget,
     });
   }
 }
