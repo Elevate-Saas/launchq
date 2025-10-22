@@ -8,12 +8,14 @@ import { AuthModule } from './modules/auth/auth.module';
 import { DatabaseServiceModule } from './modules/shared/database/database.module';
 import { UtilsServiceModule } from './modules/shared/utils/utils.module';
 import { OrganizationModule } from './modules/organization/organization.module';
+import { WaitlistModule } from './modules/waitlists/waitlist.module';
 @Module({
   imports: [
     AuthModule,
     DatabaseServiceModule,
     UtilsServiceModule,
     OrganizationModule,
+    WaitlistModule,
   ],
   controllers: [],
   providers: [
